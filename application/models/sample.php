@@ -1,5 +1,6 @@
 <?php
-	
-class Sample extends VanillaModel{
-	
+
+class Sample extends VanillaModel
+{
+
 }
