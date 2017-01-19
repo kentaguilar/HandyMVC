@@ -1,4 +1,5 @@
 <?php
+
 class HTML
 {
 	private $js = array();
