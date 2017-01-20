@@ -14,16 +14,26 @@ class Controller
 		$this->_model = $model;
 
 		$this->$model = new $model;
-		$this->_template = new Template($controller, $action);
+		$this->_template = new UrbanTemplate($controller, $action);
 	}
 
-	function set($name, $value)
+	function with($name, $value)
 	{
-		$this->_template->set($name, $value);
+		return $this->_template->with($name, $value);		
+	}
+
+	function view($layout)
+	{
+		return $this->_template->view( ROOT . "/app/views/" . $layout);
+	}
+
+	public function display_with_layout($child_layout, $main_layout = "")
+	{
+		$this->_template->display_with_layout($child_layout, $main_layout);
 	}
 
 	function __destruct()
 	{
-		$this->_template->render();
+		// $this->_template->render();
 	}
 }
