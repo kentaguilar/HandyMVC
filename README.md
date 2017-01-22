@@ -1,3 +1,4 @@
 ## Handy MVC
 
-A light and functional PHP MVC Framework
+A light and functional PHP MVC Framework<br/>
+It allows developers to focus only on their targeted logics and not on other time wasting activities.
