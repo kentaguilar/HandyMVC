@@ -19,7 +19,7 @@ class Controller
 
 	function with($name, $value)
 	{
-		return $this->_template->with($name, $value);		
+		return $this->_template->with($name, $value);
 	}
 
 	function view($layout)
@@ -27,9 +27,14 @@ class Controller
 		return $this->_template->view( ROOT . "/app/views/" . $layout);
 	}
 
-	public function display_with_layout($child_layout, $main_layout = "")
+	public function displayLayout($childLayout, $mainLayout = "")
 	{
-		$this->_template->display_with_layout($child_layout, $main_layout);
+		$this->_template->displayLayout($childLayout, $mainLayout);
+	}
+
+	public function addDataToGridLayout($layout, $templates, $separator = "\n")
+	{
+		$this->_template->addDataToGridLayout($layout, $templates, $separator);
 	}
 
 	function __destruct()

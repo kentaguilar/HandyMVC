@@ -19,14 +19,14 @@ class UrbanTemplate
     return $this;
   }
 
-  public function display_with_layout($child_layout, $main_layout = "")
+  public function displayLayout($childLayout, $mainLayout = "")
   {
-      $cleaned_child_layout = ROOT . "/app/views/" . $child_layout;
+      $cleaned_child_layout = ROOT . "/app/views/" . $childLayout;
       $cleaned_main_layout = ROOT . "/app/views/layouts/default";
 
-      if($main_layout)
+      if($mainLayout)
       {
-        $cleaned_main_layout = ROOT . "/app/views/" . $main_layout;
+        $cleaned_main_layout = ROOT . "/app/views/" . $mainLayout;
       }
 
       $this->_variable['content'] = $this->view($cleaned_child_layout);
@@ -52,7 +52,7 @@ class UrbanTemplate
     return $output;
   }
 
-  public function merge($layout, $templates, $separator = "\n")
+  public function addDataToGridLayout($layout, $templates, $separator)
   {
     $output = "";
     foreach($templates as $template)
