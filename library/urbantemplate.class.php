@@ -7,11 +7,16 @@ class UrbanTemplate
   protected $_controller;
 	protected $_action;
 
-  function __construct($controller, $action)
+  function __construct()
 	{
-		$this->_controller = $controller;
-		$this->_action = $action;
+
 	}
+
+  public function setControllerAction($controller, $action)
+  {
+    $this->_controller = $controller;
+		$this->_action = $action;
+  }
 
   public function with($key, $value)
   {
@@ -33,9 +38,9 @@ class UrbanTemplate
       echo $this->view($cleaned_main_layout);
   }
 
-  public function view($layout)
+  public function view($layout, $isDataRow = false)
   {
-    $this->_layout = $layout . ".urban.php";
+    $this->_layout = $isDataRow ? "../app/views/" . $layout . ".urban.php" : $layout . ".urban.php";
 
     if(!file_exists($this->_layout))
     {
@@ -52,15 +57,17 @@ class UrbanTemplate
     return $output;
   }
 
-  public function addDataToGridLayout($layout, $templates, $separator)
+  public function addDataToGridLayout($layout, $templates, $separator = "\n")
   {
     $output = "";
     foreach($templates as $template)
     {
       $content = (get_class($template) !== "UrbanTemplate")
-                ? "[Error, incorrect type - expected template]" : $template->view($layout);
+                ? "[Error, incorrect type - expected template]" : $template->view($layout, true);
       $output .= $content . $separator;
     }
+
+    // echo "value: " . $output;
 
     return $output;
   }

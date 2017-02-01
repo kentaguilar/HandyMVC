@@ -14,7 +14,8 @@ class Controller
 		$this->_model = $model;
 
 		$this->$model = new $model;
-		$this->_template = new UrbanTemplate($controller, $action);
+		$this->_template = new UrbanTemplate();
+		$this->_template->setControllerAction($controller, $action);
 	}
 
 	function with($name, $value)
@@ -32,9 +33,9 @@ class Controller
 		$this->_template->displayLayout($childLayout, $mainLayout);
 	}
 
-	public function addDataToGridLayout($layout, $templates, $separator = "\n")
+	public function addDataToGridLayout($layout, $templates)
 	{
-		$this->_template->addDataToGridLayout($layout, $templates, $separator);
+		return $this->_template->addDataToGridLayout($layout, $templates, "\n");
 	}
 
 	function __destruct()

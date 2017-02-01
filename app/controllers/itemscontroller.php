@@ -4,13 +4,7 @@ use HandyMVC\Foundation;
 
 class ItemsController extends Controller
 {
-	// function view($id = null, $name = null)
-	// {
-	// 	$this->set('title', $name . ' - My Todo List App');
-	// 	$this->set('todo', $this->Item->select($id));
-	// }
-	//
-	function viewAll()
+	function index()
 	{
 		$userlist = array(
 		  array("username" => "Hector Mitchell", "location" => "3698 Maple Rd"),
@@ -29,9 +23,17 @@ class ItemsController extends Controller
 		  $user_templates[] = $row_template;
 		}
 
-		var_dump($user_templates);
+		$user_content = $this->addDataToGridLayout("items/datarow", $user_templates, true);
+		$this->with("users", $user_content)->with("title", "View All Items")->displayLayout("items/index", "layouts/public");
 	}
-	//
+
+	function show($id = null)
+	{
+		$this->with("username", "pogi")->with("name", "Pogi points")
+		  ->with("age", "26")->with("location", "Davao")
+			->with("title", "Test Page")->displayLayout("items/show", "layouts/public");
+	}
+
 	// function add()
 	// {
 	// 	$todo = $_POST['todo'];
@@ -44,11 +46,4 @@ class ItemsController extends Controller
 	// 	$this->set('title','Success - My Todo List App');
   //   $this->set('todo',$this->Item->query('delete from items where id = \''.mysql_real_escape_string($id).'\''));
 	// }
-
-	function test()
-	{
-		$this->with("username", "pogi")->with("name", "Pogi points")
-		  ->with("age", "26")->with("location", "Davao")
-			->with("title", "Test Page")->displayLayout("items/test", "layouts/public");
-	}
 }
