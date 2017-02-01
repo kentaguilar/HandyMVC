@@ -7,7 +7,7 @@
 
   </head>
   <body>
-    <h2>Public Template</h2>
+    <h2>My Store</h2>
     <div id="content">
       [@content]
     </div>

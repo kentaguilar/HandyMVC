@@ -4,18 +4,14 @@ use HandyMVC\Foundation;
 
 class ItemsController extends Controller
 {
-	function index()
+	public function index()
 	{
-		$userlist = array(
-		  array("username" => "Hector Mitchell", "location" => "3698 Maple Rd"),
-		  array("username" => "Naomi Jacobs", "location" => "5096 Second St"),
-		  array("username" => "Jimmy Stevens", "location" => "3048 E Santa Ana St"),
-		);
+		$itemList = $this->Item->selectAll();
 
-		foreach($userlist as $user)
+		foreach($itemList as $item)
 		{
 		  $row_template = new UrbanTemplate();
-		  foreach($user as $key => $value)
+		  foreach($item["Item"] as $key => $value)
 		  {
 		    $row_template->with($key, $value);
 		  }
@@ -27,23 +23,33 @@ class ItemsController extends Controller
 		$this->with("users", $user_content)->with("title", "View All Items")->displayLayout("items/index", "layouts/public");
 	}
 
-	function show($id = null)
+	public function show($id = null)
 	{
-		$this->with("username", "pogi")->with("name", "Pogi points")
-		  ->with("age", "26")->with("location", "Davao")
+		$currentItem = $this->Item->query("SELECT * FROM items WHERE id=$id");
+
+		$this->with("name", $currentItem[0]["Item"]["name"])->with("price", $currentItem[0]["Item"]["price"])
 			->with("title", "Test Page")->displayLayout("items/show", "layouts/public");
 	}
 
-	// function add()
-	// {
-	// 	$todo = $_POST['todo'];
-	// 	$this->set('title', 'Success - My Todo List App');
-	// 	$this->set('todo', $this->Item->query('insert into items (item_name) values (\''.mysql_real_escape_string($todo).'\')'));
-	// }
-	//
-	// function delete($id = null)
-	// {
-	// 	$this->set('title','Success - My Todo List App');
-  //   $this->set('todo',$this->Item->query('delete from items where id = \''.mysql_real_escape_string($id).'\''));
-	// }
+	public function add()
+	{
+		$this->with("title", "New Item")->displayLayout("items/new", "layouts/public");
+	}
+
+	public function create()
+	{
+		$itemName = $_POST['txtItemName'];
+		$itemPrice = $_POST['txtItemPrice'];
+
+		$this->Item->query("INSERT INTO items(name, price) VALUES('" . $itemName . "', '" . $itemPrice . "');");
+
+		echo "Item successfully added	<br/><a href='index'>Item List</a>";
+	}
+
+	public function delete($id = null)
+	{
+		$this->Item->query("DELETE FROM items WHERE id=$id");
+
+			echo "Item successfully deleted	<br/><a href='../index'>Item List</a>";
+	}
 }

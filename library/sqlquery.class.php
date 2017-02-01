@@ -55,6 +55,7 @@ class SQLQuery
 	function selectAll()
 	{
 		$query = 'select * from ' .  $this->_table;
+
 		return $this->query($query);
 	}
 
