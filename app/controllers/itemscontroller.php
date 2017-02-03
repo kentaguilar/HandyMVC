@@ -50,6 +50,6 @@ class ItemsController extends Controller
 	{
 		$this->Item->query("DELETE FROM items WHERE id=$id");
 
-			echo "Item successfully deleted	<br/><a href='../index'>Item List</a>";
+		echo "Item successfully deleted	<br/><a href='../index'>Item List</a>";
 	}
 }

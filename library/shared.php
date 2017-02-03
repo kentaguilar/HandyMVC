@@ -53,6 +53,12 @@ function unregisterGlobals()
 	}
 }
 
+/* render default 503 page */
+function getDefaultPage()
+{
+	print_r(file_get_contents("../app/views/errors/503.urban.php"));
+}
+
 /* main function call */
 function callHook()
 {
@@ -61,26 +67,32 @@ function callHook()
 	$urlArray = array();
 	$urlArray = explode("/", $url);
 
-	$controller = $urlArray[0];
-	array_shift($urlArray);
-	$action = $urlArray[0];
-	array_shift($urlArray);
-	$queryString = $urlArray;
-
-	$controllerName = $controller;
-	$controller = ucwords($controller);
-	$model = rtrim($controller, 's');
-	$controller .= 'Controller';
-
-	$dispatch = new $controller($model, $controllerName, $action);
-
-	if ((int)method_exists($controller, $action))
+	if(count($urlArray) > 1)
 	{
-		call_user_func_array(array($dispatch, $action), $queryString);
+		$controller = $urlArray[0];
+		array_shift($urlArray);
+		$action = $urlArray[0];
+		array_shift($urlArray);
+		$queryString = $urlArray;
+
+		$controllerName = $controller;
+		$controller = ucwords($controller);
+		$model = rtrim($controller, 's');
+		$controller .= 'Controller';
+
+		if ((int)method_exists($controller, $action))
+		{
+			$dispatch = new $controller($model, $controllerName, $action);
+			call_user_func_array(array($dispatch, $action), $queryString);
+		}
+		else
+		{
+			getDefaultPage();
+		}
 	}
 	else
 	{
-		/* Error Generation Code Here */
+		getDefaultPage();
 	}
 }
 
@@ -92,7 +104,7 @@ function __autoload($className)
 		require_once(ROOT . DS . 'library' . DS . strtolower($className) . '.class.php');
 	}
 	else if (file_exists(ROOT . DS . 'app' . DS . 'controllers' . DS . strtolower($className) . '.php'))
-	{	
+	{
 		require_once(ROOT . DS . 'app' . DS . 'controllers' . DS . strtolower($className) . '.php');
 	}
 	else if (file_exists(ROOT . DS . 'app' . DS . 'models' . DS . strtolower($className) . '.php'))

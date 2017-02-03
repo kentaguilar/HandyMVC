@@ -12,7 +12,7 @@ class Controller
 		$this->_controller = $controller;
 		$this->_action = $action;
 		$this->_model = $model;
-
+				
 		$this->$model = new $model;
 		$this->_template = new UrbanTemplate();
 		$this->_template->setControllerAction($controller, $action);

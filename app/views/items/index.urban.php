@@ -1,6 +1,6 @@
 <h2>Item List</h2>
 
-<a href="add">Add New Item</a>
+<a href="/items/add">Add New Item</a>
 <br/><br/>
 
 <table border="1">
