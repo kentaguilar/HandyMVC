@@ -1,5 +1,15 @@
 ## Handy MVC
 
-A light and functional PHP MVC Framework<br/>
-Easy to use and opinionated technology.<br/>
-It allows developers to focus only on their targeted logics and not on other time wasting activities.
+A light and functional PHP MVC Framework
+
+## Getting Started
+
+- Create the needed MVC files initially. Make a new controller on /app/controllers folder e.g. itemscontroller.php.
+- Views are organized by folder names, hence, the view files of itemscontroller is on /app/views/items folder. Controller actions define the filename of the views. So, if you have a controller action named "test" e.g. itemscontroller > test, then you need to create a view named test.urban.php.
+- For models, the name of the controller is ultimately the filename e.g. /app/models/item.php.
+- For the content, please refer on the sample MVC files.
+- Routing is automatically activated based on your defined controller actions. itemscontroller > test will be accessed view http://{domain}/items/test.
+
+## External Technologies Used
+
+HandyMVC uses UrbanTemplate(https://github.com/kentaguilar/UrbanTemplate) as the default templating engine
