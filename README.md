@@ -13,3 +13,7 @@ A light and functional PHP MVC Framework
 ## External Technologies Used
 
 HandyMVC uses UrbanTemplate(https://github.com/kentaguilar/UrbanTemplate) as the default templating engine
+
+## Output
+
+<img src="http://deepmirage.com/git/handymvc.png" alt="HandyMVC" width="268"/>
